@@ -1,0 +1,21 @@
+{
+  "apps": [{
+    "exec_mode"  : "cluster_mode",
+    "instances" : 2,
+    "script": "./build/src/index.js",
+    "name": my-project,
+    "log_date_format"  : "YYYY-MM-DD",
+    "log_file"   : "/data/logs/node/my-project/child.log",
+    "error_file" : "/data/logs/node/my-project/child-err.log",
+    "out_file"   : "/data/logs/node/my-project/child-out.log",
+    "pid_file"   : "/data/logs/node/my-project/child.pid",
+    "interpreter": "node",
+    "port"       : 3000,
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "env_production": {
+      "NODE_ENV": "production"
+   }
+  }]
+}

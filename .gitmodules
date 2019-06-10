@@ -1,0 +1,3 @@
+[submodule "jbean"]
+	path = jbean
+	url = https://github.com/7kgame/jbean
