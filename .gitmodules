@@ -1,3 +1,6 @@
 [submodule "jbean"]
 	path = jbean
 	url = https://github.com/7kgame/jbean
+[submodule "open"]
+	path = open
+	url = http://gitlab.7k7k.com/open/openapi.7k7k.com.git
