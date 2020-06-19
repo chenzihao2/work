@@ -1,6 +1,0 @@
-
-In financial_data_count.php line 36:
-                                               
-  Class 'App\models\financial_data' not found  
-                                               
-
