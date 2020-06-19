@@ -1,0 +1,1 @@
+{"from_uid":2291,"identity":"1","to_uid":2083,"type":"say","text":"3213312","user":{"_id":2291,"name":"13522072031","avatar":null},"createdAt":"2020-01-17T09:29:13.966Z","_id":"8AF21139-9F70-4DD0-BDD2-F139BFE33D78","contentType":1}

@@ -1,0 +1,49 @@
+{
+  "name": "HaoLiao/yangchao",
+  "description": "HaoLiao API",
+  "authors": [
+    {
+      "name": "yangchao",
+      "email": "yangchao@7k7k.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "QK\\": "./src/main/QK",
+      "QK\\CloudStorage\\" : "./src/main/QK/CloudStorage",
+      "QKTest\\": "./src/test/QKTest"
+    }
+  },
+  "minimum-stability": "dev",
+  "repositories": {
+    "0": {
+      "type": "path",
+      "url": "../../wsf"
+    },
+    "1": {
+      "type": "path",
+      "url": "../../qk-cloudstorage"
+    },
+    "2": {
+      "type": "path",
+      "url": "../../wechat"
+    },
+    "3": {
+      "type": "path",
+      "url": "../../alipay"
+    }
+  },
+  "require": {
+    "php": "^7.1",
+    "qk/wsf": "dev-master",
+    "qk/wechat": "dev-master",
+    "qk/alipay": "dev-master",
+    "firebase/php-jwt": "dev-master",
+    "codeguy/upload": "dev-master",
+    "qk/qk-cloudstorage": "master",
+    "nmgtxkj/txkj-gatewayworker": "dev-master",
+    "eaglewu/swoole-ide-helper": "dev-master",
+    "jaeger/querylist": "dev-master",
+    "kosinix/grafika": "dev-master"
+  }
+}

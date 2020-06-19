@@ -1,0 +1,71 @@
+<?php
+/**
+ * controller映射配置文件
+ * User: YangChao
+ * Date: 2018/9/11
+ */
+return [
+    'console' => [
+        'api' => 'ExpertController',
+        'login' => 'LoginController',
+        'content' => 'ContentController',
+        'order' => 'OrderController',
+        'expert' => 'ExpertController',
+        'user' => 'UserController',
+        'match' => 'MatchController',
+        'soccer' => 'SoccerController',
+        'betrecord' => 'BetRecordController',
+        "file" => 'FileController',
+        "withdraw" => 'WithDrawController',
+        "financial" => 'FinancialController',
+        "complaint" => 'ComplaintController',
+        "dist" => 'DistController',
+        "banner" => 'BannerController',
+        "news" => 'NewsController',
+        "vc" => 'VcController',
+        "ordertest" => 'OrderTestController',
+        'sport' => 'SportDTController',
+        'video' => 'VideoController',
+        'category' => 'CategoryController',
+        'pushmsg' => 'PushMsgController',
+        'coupon' => 'CouponController',
+        'notice' => 'NoticeController',
+    ],
+    'expert' => [
+        "config" => 'ConfigController',
+        "sms" => 'SmsController',
+        "expert" => 'ExpertController',
+        'resource' => 'ResourceController',
+        "subaccount" => 'SubaccountController',
+        'match' => 'MatchController',
+        "file" => 'FileController',
+        "withdraw" => 'WithDrawController',
+        "auth" => 'AuthController',
+    ],
+    'user' => [
+        "config" => 'ConfigController',
+        "login" => 'LoginController',
+        "expert" => 'ExpertController',
+        'match' => 'MatchController',
+        'user' => 'UserController',
+        'resource' => 'ResourceController',
+        'pay' => 'PayController',
+        'paynotify' => 'PayNotifyController',
+        "betrecord" => 'BetRecordController',
+        "complaint" => 'ComplaintController',
+        "file" => 'FileController',
+        "banner" => 'BannerController',
+        "news" => 'NewsController',
+        "video" => 'VideoController',
+        "vc" => 'VcController',
+        "soccer" => 'SoccerController',
+        "basketball" => 'BasketballController',
+        "basketballindexs" => 'BasketballIndexsController',
+        "test" => 'TestController',
+        'coupon' => 'CouponController',
+    ],
+    'dist' => [
+        "dist" => 'DistController',
+        "withdraw" => 'WithdrawController',
+    ]
+];

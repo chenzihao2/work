@@ -1,9 +1,0 @@
-node-web:
-  app:
-    cors: true
-    assets: assets
-    port: 3000
-    //host: noset
-    viewDir: view
-    controllerDir: controller
-  data:

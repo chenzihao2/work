@@ -1,0 +1,276 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1;
+
+use App\Sources;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Clients;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Illuminate\Support\Facades\Hash;
+
+use Iwanli\Wxxcx\Wxxcx;
+
+class ClientsController extends Controller
+{
+    protected $wxxcx;
+
+    function __construct(Wxxcx $wxxcx)
+    {
+        $this->wxxcx = $wxxcx;
+    }
+
+
+
+//    public function __construct()
+//    {
+//        parent::__construct();
+//    }
+
+    /**
+     * 用户登陆接口
+     *
+     * @SWG\Post(path="/api/users/login",
+     *   tags={"用户接口"},
+     *   summary="用户登陆接口",
+     *   description="",
+     *   operationId="api/v1/Clients",
+     *   produces={"application/json"},
+     *   @SWG\Parameter(
+     *     in="formData",
+     *     name="code",
+     *     type="string",
+     *     description="微信用户code",
+     *     required=true,
+     *   ),
+     *   @SWG\Parameter(
+     *     in="formData",
+     *     name="encryptedData",
+     *     type="string",
+     *     description="encryptedData",
+     *     required=true,
+     *   ),
+     *     @SWG\Parameter(
+     *     in="formData",
+     *     name="iv",
+     *     type="string",
+     *     description="iv",
+     *     required=true,
+     *   ),
+     *
+     *   @SWG\Response(response="default", description="{'status_code' : '200', 'token' : 'token']")
+     * )
+     */
+
+    public function authRegister()
+    {
+        $code = request('code', '');
+
+        if ( empty($code) ) {
+            $error['message'] = "code 不能为空";
+            return response()->json($error, 405);
+        }
+
+        //根据 code 获取用户 session_key 等信息, 返回用户openid 和 session_key
+        $userInfo = $this->wxxcx->getLoginInfo($code);
+
+
+        // 提供前端， 资源id 判断用户是否为扫码进入
+        $sid = (int)request('sid', '');
+        $scan = 0;  // 0 为扫码
+        $makers = 0;
+        if( !empty($sid) ) {
+            $scan = 1;  // 1 扫码
+            $sources = Sources::select('uid')->where("id", $sid)->first();
+            $source = $sources->ToArray();
+            $makers = $source['uid'];
+        }
+
+
+        //encryptedData 和 iv 在小程序端使用 wx.getUserInfo 获取
+        $encryptedData = request('encryptedData', '');
+        $iv = request('iv', '');
+
+        // 判断encryptedData 和 iv 是否为空 为空时对openid sessionkey 进行添加并返回token
+
+        if (empty($encryptedData) or empty($iv)) {
+
+            $newUser = [
+                'openid' => $userInfo['openid'],
+                'sessionkey' => $userInfo['session_key'],
+            ];
+
+            // 根据openid 进行判断数据库中是否存在， 不存在则进行创建， 存在则直接包含返回
+            $users = Clients::select('id', 'nickname', 'sex', 'city', 'province', 'country', 'avatarurl', 'balance', 'created_at')->where('openid', $newUser['openid'])->first();
+
+            $producer = 0;
+            if ($users) {
+
+                // 已经存在则进行 修改sessionKey
+                $re = Clients::where("openid", $newUser['openid'])->update(['sessionkey' => $newUser['sessionkey']]);
+ //               print_r($re->ToArray());die;
+                $token = JWTAuth::fromUser($users);
+                if ($scan == 1) {
+                    if($users['id'] == $makers) {
+                        $producer = 1;
+                    }
+                }
+                return response()->json(['token' => $token, 'scan' => $scan, 'producer' => $producer]);
+            }
+
+            $user = Clients::create($newUser);
+            $token = JWTAuth::fromUser($user);
+            return response()->json(['token' => $token, 'scan' => $scan, 'producer' => $producer]);
+        }
+
+
+        //获取解密后的用户信息
+        $info = $this->wxxcx->getUserInfo($encryptedData, $iv);
+        $info = json_decode($info, True);
+
+        $newUser = [
+            'openid' => $info['openId'],
+            'nickname' => $info['nickName'],
+            'sex' => $info['gender'],
+            'city' => $info['city'],
+            'province' => $info['province'],
+            'country' => $info['country'],
+            'avatarurl' => $info['avatarUrl'],
+        ];
+
+        $user = Clients::select('id', 'nickname', 'sex', 'city', 'province', 'country', 'avatarurl', 'balance', 'created_at')->where('openid', $info['openId'])->first();
+
+        if ($user) {
+            $token = JWTAuth::fromUser($user);
+            $users = $user->ToArray();
+            $producer = 0;
+            if ($scan == 1) {
+                if($users['id'] == $makers) {
+                    $producer = 1;
+                }
+            }
+            return response()->json(['token' => $token, 'scan' => $scan, 'producer' => $producer]);
+        }
+
+        $user = Clients::create($newUser);
+        $token = JWTAuth::fromUser($user);
+        $users = $user->ToArray();
+        $producer = 0;
+        if ($scan == 1) {
+            if($users['id'] == $makers) {
+                $producer = 1;
+            }
+        }
+
+        // scan 判断是否为扫码进入， producer 判断是否为制作人扫码进入
+        return response()->json(['token' => $token, 'scan' => $scan, 'producer' => $producer]);
+
+    }
+
+
+    /**
+     * 用户信息详情
+     *
+     * @SWG\Get(path="/api/users/info",
+     *   tags={"用户接口"},
+     *   summary="获取用户详情",
+     *   description="",
+     *   operationId="api/v1/Clients",
+     *   produces={"application/json"},
+     *   @SWG\Parameter(
+     *     in="formData",
+     *     name="token",
+     *     type="string",
+     *     description="token",
+     *     required=true,
+     *   ),
+     *
+     *   @SWG\Response(response="default", description="{'status_code' : '200', 'token' : 'token']")
+     * )
+     */
+
+    // 获取用户信息
+    public function AuthenticatedUser()
+    {
+        $token = JWTAuth::getToken();
+        try {
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['user_not_found'], 404);
+            }
+        } catch (TokenExpiredException $e) {
+            return response()->json(['status_code' => '401', 'message' => 'token失效或异常']);
+        } catch (TokenInvalidException $e) {
+            return response()->json(['status_code' => '401', 'message' => 'token失效或异常']);
+        } catch (JWTException $e) {
+            return response()->json(['status_code' => '401', 'message' => 'token失效或异常']);
+        }
+        return response()->json(compact('user'));
+    }
+
+
+    /**
+     * token刷新
+     *
+     * @SWG\Get(path="/api/users/refresh",
+     *   tags={"用户接口"},
+     *   summary="刷新token",
+     *   description="",
+     *   operationId="api/v1/Clients",
+     *   produces={"application/json"},
+     *   @SWG\Parameter(
+     *     in="formData",
+     *     name="token",
+     *     type="string",
+     *     description="token",
+     *     required=true,
+     *   ),
+     *
+     *   @SWG\Response(response="default", description="{'status_code' : '200', 'token' : 'token']")
+     * )
+     */
+    public function updateToken()
+    {
+        $token = JWTAuth::getToken();
+        try {
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['user_not_found'], 404);
+            }
+        } catch (TokenExpiredException $e) {
+            $token = JWTAuth::refresh();
+            return response()->json(['status_code' => '401', 'message' => 'token失效或异常', 'token' => $token]);
+        } catch (TokenInvalidException $e) {
+            $token = JWTAuth::refresh();
+            return response()->json(['status_code' => '401', 'message' => 'token失效或异常', 'token' => $token]);
+        } catch (JWTException $e) {
+            $token = JWTAuth::refresh();
+            return response()->json(['status_code' => '401', 'message' => 'token失效或异常', 'token' => $token]);
+        }
+
+        return response()->json(['status_code' => '200', 'message' => '', 'token' => $token]);
+    }
+
+
+    // 根据code 获取微信用户信息
+    public function code($code)
+    {
+        if ( empty($code) ) {
+            $error['status'] = "405";
+            return response()->json($error);
+        }
+
+        //encryptedData 和 iv 在小程序端使用 wx.getUserInfo 获取
+        $encryptedData = request('encryptedData', '');
+        $iv = request('iv', '');
+
+        //根据 code 获取用户 session_key 等信息, 返回用户openid 和 session_key
+        $userInfo = $this->wxxcx->getLoginInfo($code);
+
+        //获取解密后的用户信息
+        return $this->wxxcx->getUserInfo($encryptedData, $iv);
+    }
+
+
+}

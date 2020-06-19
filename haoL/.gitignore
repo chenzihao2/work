@@ -1,0 +1,8 @@
+/vendor/*
+/.idea
+.DS_Store
+/static/user/20*
+/static/resource/20*
+/uploads/*
+/composer.lock
+constant.php

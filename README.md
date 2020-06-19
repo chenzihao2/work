@@ -1,2 +1,1 @@
-# work
-work  directory
+some projects are developed by individuals

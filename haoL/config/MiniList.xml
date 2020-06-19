@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configList>
+    <!--
+    id 登录传值
+    name登录渠道名
+    type    登录类型1，小程序，2公众号3，支付宝，4手机号
+    -->
+    <config id="1" name="公众号1" type="2"/>
+    <config id="2" name="公众号2" type="2"/>
+    <config id="3" name="小程序1" type="2"/>
+    <config id="4" name="公众号3" type="2"/>
+</configList>
+

@@ -1,0 +1,298 @@
+/*
+**完善信息页面样式
+ */
+html {
+  color: #000;
+  background: #fff;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+}
+input,
+select,
+img {
+  vertical-align: middle;
+}
+input,
+select {
+  outline: none;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+body,
+button,
+input,
+select,
+textarea {
+  font: 12px/1.8 'Microsoft YaHei', tahoma, arial, simsun, sans-serif;
+}
+input,
+select,
+textarea {
+  font-size: 100%;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+th {
+  text-align: inherit;
+}
+fieldset,
+img {
+  border: 0;
+}
+iframe {
+  display: block;
+}
+abbr,
+acronym {
+  border: 0;
+  font-variant: normal;
+}
+del {
+  text-decoration: line-through;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+th,
+var {
+  font-style: normal;
+  font-weight: 500;
+}
+body {
+  font-size: 62.5%;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #eee;
+  color: #666;
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+i {
+  font-style: normal;
+}
+.clear {
+  *zoom: 1;
+}
+.clear:after {
+  display: block;
+  content: "";
+  height: 0;
+  clear: both;
+  overflow: hidden;
+}
+a:link {
+  color: #333333;
+  text-decoration: none;
+}
+a:visited {
+  color: #333333;
+  text-decoration: none;
+}
+a:hover {
+  color: #333333;
+  text-decoration: none;
+}
+a:active {
+  color: #333333;
+}
+.pad8 {
+  padding: 8px;
+}
+.pad815 {
+  padding: 8px 10px 8px 5px;
+}
+img {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+.float_l {
+  float: left;
+}
+.float_r {
+  float: right;
+}
+/**
+ * 设定尺寸
+ */
+.container {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.4rem;
+  padding-top: 1.33333333rem;
+  padding-right: 1.2rem;
+  padding-bottom: 1.73333333rem;
+  padding-left: 1.2rem;
+  box-sizing: border-box;
+}
+.content {
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+h1 {
+  color: #333333;
+  font-size: 0.4rem;
+  line-height: 0.66666667rem;
+}
+.info {
+  font-size: 0.34666667rem;
+  padding-top: 0rem;
+  padding-right: 0.24rem;
+  padding-bottom: 0rem;
+  padding-left: 0.24rem;
+  line-height: 0.66666667rem;
+  color: #fe4426;
+  margin-top: 0.26666667rem;
+}
+.drawmoney-btn {
+  width: 7.66666667rem;
+  height: 1.25333333rem;
+  line-height: 1.25333333rem;
+  border-radius: 0.13333333rem;
+  border: none;
+  background-color: #fe4426;
+  color: #fff;
+  font-size: 0.4rem;
+}
+.drawmoney-btn.active {
+  background-color: #fe4426;
+}
+form {
+  width: 100%;
+  margin-top: 0.66666667rem;
+}
+.input-box {
+  overflow: hidden;
+  margin-bottom: 0.46666667rem;
+}
+.input-box label {
+  display: inline-block;
+  height: 0.66666667rem;
+  font-size: 0.4rem;
+  line-height: 0.66666667rem;
+  color: #333;
+}
+.input-box input {
+  float: right;
+  width: 5.33333333rem;
+  height: 0.66666667rem;
+  line-height: 0.66666667rem;
+  font-size: 0.37333333rem;
+  color: #333;
+  background: #f3f5f8;
+  border: 0;
+  text-indent: 1em;
+}
+.input-box textarea {
+  resize: none;
+  float: right;
+  width: 5.33333333rem;
+  height: 2rem;
+  line-height: 0.66666667rem;
+  font-size: 0.37333333rem;
+  color: #333;
+  background: #f3f5f8;
+  border: 0;
+  text-indent: 1em;
+}

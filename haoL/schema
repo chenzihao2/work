@@ -1,0 +1,188 @@
+#2019-11-14
+ALTER TABLE `hl_resource_schedule` ADD `h` VARCHAR(16) NOT NULL DEFAULT '' COMMENT '让球';
+ALTER TABLE `hl_resource_schedule` ADD `w` VARCHAR(16) NOT NULL DEFAULT '' COMMENT '主胜';
+ALTER TABLE `hl_resource_schedule` ADD `d` VARCHAR(16) NOT NULL DEFAULT '' COMMENT '平局';
+ALTER TABLE `hl_resource_schedule` ADD `l` VARCHAR(16) NOT NULL DEFAULT '' COMMENT '客胜';
+ALTER TABLE `hl_resource_schedule` ADD `recommend` VARCHAR(16) NOT NULL DEFAULT '' COMMENT '专家推荐：主推，非主推';
+ALTER TABLE `hl_resource_schedule` ADD `bet_status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0默认,1主推红单,2走单,3黑单，4次推红单,5主推半红,6副推半红,7半黑';
+ALTER TABLE `hl_resource_schedule` ADD `lottery_result` INT(4) NOT NULL DEFAULT '0' COMMENT '推荐赔率的结果:1,主胜，2,平，3,客胜，4,主半胜，5,客半胜';
+ALTER TABLE `hl_user_expert` ADD `user_id` BIGINT(11) NOT NULL DEFAULT '0' COMMENT '用户ID';
+ALTER TABLE `hl_resource` ADD `is_expert` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '是否为专家端上传';
+
+#2019-11-18
+
+#优惠券礼包
+CREATE TABLE `hl_coupon_package` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '礼包名称',
+  `img` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '礼包图片地址',
+  `cid` varchar(128) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '优惠券关联id,号隔开',
+  `uid` varchar(128) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '自定义用户id,号隔开',
+  `user_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '可领取用户类型：0：所有用户，1：新用户，2付费用户，3 七天未使用，4一月未使用，5自定义用户',
+  `area` tinyint(1) NOT NULL DEFAULT '0' COMMENT '领取区域0：首页弹窗',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:永久有效，1：限时有效',
+  `sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序，数字越大越靠前',
+  `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '有效开始时间',
+  `end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '有效结束时间',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0：正常，1：删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='优惠券礼包表';
+#后台优惠券表
+
+CREATE TABLE `hl_coupon_backstage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bid` varchar(128) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '礼包关联id用,号隔开',
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '优惠券名称',
+  `slogan` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '前端标语',
+  `condition` int(11) NOT NULL DEFAULT '0' COMMENT '条件：满-金额',
+  `discount` int(11) NOT NULL DEFAULT '0' COMMENT '优惠金额',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '条件0：无门槛，1满减',
+  `days` int(10) NOT NULL DEFAULT '0' COMMENT '有效天数',
+  `count` int(10) NOT NULL DEFAULT '0' COMMENT '发放数量',
+  `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '有效开始时间',
+  `end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '有效结束时间',
+  `amount` int(11) NOT NULL DEFAULT '0' COMMENT '用户已使用数量',
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序，数字越大越靠前',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0：待上线，1：已上线，2：已下线',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0：正常，1：删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='后台优惠券表';
+
+#用户优惠券表
+
+CREATE TABLE `hl_coupon_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `cid` int(11) NOT NULL DEFAULT '0' COMMENT '后台优惠券关联id',
+  `bid` int(11) NOT NULL DEFAULT '0' COMMENT '礼包表关联id',
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '优惠券名称',
+  `pname` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '礼包名称',
+  `condition` int(11) NOT NULL DEFAULT '0' COMMENT '条件：满-金额',
+  `discount` int(11) NOT NULL DEFAULT '0' COMMENT '优惠金额',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '条件0：无门槛，1满减',
+  `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '有效开始时间',
+  `end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '有效结束时间',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0：待使用，1：已使用，2：已过期',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='用户优惠券表';
+
+#用户设备号关联表
+
+CREATE TABLE `hl_user_device` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `device_number` CHAR(36) NOT NULL DEFAULT '' COMMENT '设备号',
+  `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0：新设备 1：已完成注册登录',
+  `ctime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `utime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `device` (`device_number`) USING BTREE
+) ENGINE=INNODB  DEFAULT CHARSET=utf8 COMMENT='设备号用户关联表';
+
+
+
+
+
+
+#20191119
+
+alter table `hl_order` add `coupon_id` int not null default 0 comment '所使用的用户的优惠券id';
+
+
+#2019-11-22
+alter table hl_channel modify column channel char(20);
+
+#2019-11-22
+
+alter table `hl_order` add `channel` char(20) not null default 0 comment '渠道';
+alter table `hl_order` add `platform` char(20) not null default 0 comment '平台： Android、iOS';
+
+
+#2019-11-25
+ALTER TABLE `hl_coupon_user` ADD `uuid` varchar(20)  NOT NULL  DEFAULT '0'  COMMENT '账号绑定唯一id'  AFTER `uid`;
+
+#2019-12-06
+ALTER TABLE `hl_news` ADD `article_source` varchar(60)  NOT NULL  DEFAULT '0'  COMMENT '文章来源';
+
+
+#2019-12-20
+CREATE TABLE `hl_basketball_lottery` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `match_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '比赛编号',
+  `date` timestamp NOT NULL DEFAULT '1970-08-08 00:00:00' COMMENT '比赛时间',
+  `lottery_num` varchar(16) NOT NULL DEFAULT '' COMMENT '竞彩编号',
+  `is_single` tinyint(1) NOT NULL DEFAULT '0' COMMENT '可单关标识:0：不可单关，1：单关',
+  `is_ah` tinyint(1) NOT NULL DEFAULT '0' COMMENT '竞彩赛程与SportsDT对阵是否相反，0相同 1相反',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1:胜平负参考值,2:让球胜平负参考值,3:大小分参考值',
+  `h` varchar(10) NOT NULL DEFAULT '0' COMMENT '让球',
+  `w` varchar(10) NOT NULL DEFAULT '0' COMMENT '主胜',
+  `d` varchar(10) NOT NULL DEFAULT '0' COMMENT '平局',
+  `l` varchar(10) NOT NULL DEFAULT '0' COMMENT '客胜',
+  `lottery_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '类型 1：竞彩 2：北单',
+  `league_num` int(10) NOT NULL DEFAULT '0' COMMENT '联赛编号',
+  `league_name` varchar(64) NOT NULL DEFAULT '' COMMENT '联赛名称',
+  `league_short_name` varchar(32) NOT NULL DEFAULT '' COMMENT '联赛简称',
+  `host_team` int(11) NOT NULL DEFAULT '0' COMMENT '主队编号',
+  `host_team_name` varchar(64) NOT NULL DEFAULT '' COMMENT '主队名称',
+  `guest_team` int(11) NOT NULL DEFAULT '0' COMMENT '客队编号',
+  `guest_team_name` varchar(64) NOT NULL DEFAULT '' COMMENT '客队名称',
+  `is_first` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1:初盘(竞彩)',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `utime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `in_match_num` (`match_num`),
+  KEY `in_date` (`date`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='篮球比赛体彩相关数据表'
+
+#2019-12-20
+alter table hl_user_msg add platform tinyint(1) not null default '1' comment '1:Android，2:IOS';
+
+#2019-12-24
+
+alter table hl_push_msg add upush_ios_id char(64) not null default '' comment 'IOS:友盟消息id';
+
+alter table hl_push_msg add ios_status tinyint(1) not null default 0 comment 'IOS状态：0:待发送 1:已发送 2:已取消(删除) 3:发送失败 4:已提交至友盟(push) 5:已提交至友盟(cancel)';
+
+<<<<<<< HEAD
+alter table hl_push_msg add platform char(7) not null default '0' comment '区分安卓iOS 条件：0:全部，1:Android，2:IOS';
+
+
+
+
+
+
+
+#2019-12-26
+/* 11:12:47 AM haoliao haoliao */ 
+ALTER TABLE `hl_resource_schedule` CHANGE `d` `d` VARCHAR(16)  CHARACTER SET utf8  COLLATE utf8_general_ci  NOT NULL  DEFAULT ''  COMMENT '平局， 篮球时此字段代表玩法 1：让分 2：让分胜负 3：大小分';
+
+alter table hl_push_msg add platform char(8) not null default '0' comment '区分安卓iOS 条件：0:全部，Android，IOS';
+
+
+#2020-01-13
+
+alter table hl_user add forbidden_say tinyint(1) not null default '0' comment '0：正常，1禁言';
+
+alter table hl_user_expert add reply_content char(64) default '' comment '自动回复内容';
+
+#2020-03-16
+CREATE TABLE `hl_wechat_notice` (
+  `id` int(11)  NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL DEFAULT '' COMMENT'标题',
+  `content` varchar(255) NOT NULL DEFAULT'' COMMENT '内容',
+  `rid` int(11) NOT NULL DEFAULT'0' COMMENT '方案id',
+  `expert_id` int(11) NOT NULL DEFAULT'0' COMMENT '专家id',
+  `count` int(11) NOT NULL DEFAULT'0' COMMENT '发送人数',
+  `complete_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '完成时间',
+  `remarks` varchar(60) NOT NULL DEFAULT'' COMMENT '备注',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:全部，1：指定用户',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:发送中，1：已发送',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `utime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8  COMMENT='微信通知表';

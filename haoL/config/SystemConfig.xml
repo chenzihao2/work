@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configList>
+    <phrase>
+        <config key="commonShareCount" name="每日普通分享获得金币的次数" value="10"/>
+        <config key="commonShareGold" name="每日普通分享获得的金币数" value="10"/>
+        <config key="firstLoginGold" name="首次登录获得金币数" value="300"/>
+        <config key="answerQuestionGold" name="回答问题获得金币数" value="5"/>
+        <config key="passTagGold" name="合集通关获得金币数" value="50"/>
+        <config key="invitationGold" name="邀请新用户获得金币数" value="10"/>
+        <config key="skipQuestionGold" name="跳过问题消耗金币数" value="100"/>
+        <config key="getAnswerGold" name="获得答案消耗金币数" value="20"/>
+        <config key="getShareType" name="获得分享类型" value="1,2,5,8"/>
+        <config key="redJumpTag" name="红包按钮跳转合辑" value="10"/>
+    </phrase>
+    <comic>
+        <config key="commonShareCount" name="每日普通分享获得金币的次数" value="10"/>
+        <config key="commonShareGold" name="每日普通分享获得的金币数" value="10"/>
+        <config key="firstLoginGold" name="首次登录获得金币数" value="300"/>
+        <config key="answerQuestionGold" name="回答问题获得金币数" value="5"/>
+        <config key="passTagGold" name="合集通关获得金币数" value="50"/>
+        <config key="invitationGold" name="邀请新用户获得金币数" value="10"/>
+        <config key="skipQuestionGold" name="跳过问题消耗金币数" value="100"/>
+        <config key="getAnswerGold" name="获得答案消耗金币数" value="20"/>
+        <config key="getShareType" name="获得分享类型" value="1,2"/>
+        <config key="redJumpTag" name="红包按钮跳转合辑" value="10"/>
+    </comic>
+    <luckyDraw>
+        <config key="packGoldCount" name="新人礼包赠送金币数" value="10"/>
+        <config key="alertMini" name="金豆不足弹窗推广小程序" value="1"/>
+        <config key="QQStart" name="Q币" value="5"/>
+        <config key="QQEnd" name="到" value="10"/>
+        <config key="telNumberStart" name="话费" value="10"/>
+        <config key="telNumberEnd" name="到" value="20"/>
+    </luckyDraw>
+</configList>

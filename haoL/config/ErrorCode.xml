@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<codeList>
+    <code code="200" message="SUCCESS"/>
+
+    <code code="101" message="参数错误或不完整"/>
+    <code code="102" message="用户身份验证失败"/>
+    <code code="103" message="用户ID不存在"/>
+    <code code="104" message="请求参数不符合规范"/>
+    <code code="105" message="文件上传失败"/>
+    <code code="106" message="身份为专家，禁止重复提交信息"/>
+    <code code="107" message="身份证号有误"/>
+    <code code="110" message="操作失败，请稍后重试。"/>
+
+    <code code="1001" message="手机号已绑定"/>
+    <code code="1002" message="获取第三方信息失败"/>
+    <code code="1003" message="用户被封禁"/>
+    <code code="1004" message="请注册为专家访问"/>
+    <code code="1005" message="您不是当前专家的子账户"/>
+    <code code="1006" message="您不能访问该专家下的信息"/>
+
+    <code code="1101" message="IP数超过限制"/>
+    <code code="1102" message="同一个手机号发送超过限制"/>
+    <code code="1103" message="短信码验证失败"/>
+    <code code="1104" message="短信发送过于频繁，稍后请重试"/>
+    <code code="1105" message="手机号不正确，请输入正确手机号"/>
+
+    <code code="1201" message="绑定请求信息不符"/>
+    <code code="1202" message="解除绑定操作失败，请重试"/>
+    <code code="1203" message="没有该绑定请求"/>
+    <code code="1204" message="您已绑定主账户"/>
+    <code code="1205" message="该绑定邀请已失效"/>
+    <code code="1206" message="绑定主账户操作失败"/>
+    <code code="1207" message="您的子账户绑定数已满"/>
+    <code code="1208" message="您没有操作子账户的权限"/>
+    <code code="1209" message="您当前为专家用户，不可绑定其他主账户"/>
+
+    <code code="1301" message="该专家信息不存在"/>
+
+    <code code="2001" message="料信息不存在"/>
+    <code code="2002" message="您尚不能修改此条料信息"/>
+    <code code="2003" message="修改料信息失败"/>
+
+    <code code="2010" message="请填写比赛内容"/>
+    <code code="2011" message="不中退款仅可关联单场比赛"/>
+    <code code="2012" message="料内容生成失败，请重试"/>
+    <code code="2013" message="合买价格应小于定价"/>
+    <code code="2014" message="合买价格不能为0"/>
+    <code code="2015" message="合买人数不能为0"/>
+    <code code="2016" message="合买料必须关联比赛"/>
+
+    <code code="3001" message="您已订阅该专家，请勿重复下单"/>
+    <code code="3002" message="不支持的购买类型"/>
+    <code code="3003" message="不支持的支付类型"/>
+    <code code="3004" message="不可对自己进行订阅"/>
+    <code code="3005" message="不支持购买自己的料"/>
+    <code code="3006" message="您已购买过此料信息，请勿重复下单"/>
+    <code code="3007" message="下单失败，请重试"/>
+    <code code="3008" message="暂无此订单"/>
+    <code code="3009" message="该料以判定，不可购买"/>
+    <code code="3010" message="该料已售完"/>
+    <code code="3011" message="该料已停止出售"/>
+    <code code="3012" message="余额不足"/>
+
+    <code code="4001" message="有提现中的记录"/>
+    <code code="4002" message="暂无可提现金额"/>
+
+    <!--后台错误码-->
+    <code code="5000" message="自定义错误信息"/>
+    <code code="5001" message="请输入用户名或密码"/>
+    <code code="5002" message="用户名不存在"/>
+    <code code="5003" message="登陆失败"/>
+    <code code="5004" message="本专家已到第一位"/>
+    <code code="5005" message="本专家已到最后一位"/>
+
+</codeList>
+

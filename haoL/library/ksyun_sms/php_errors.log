@@ -1,0 +1,9 @@
+[17-Jul-2019 10:49:18 Asia/Shanghai] PHP Notice:  Undefined index: config in /Users/wulin/work/kingsoft/aws_sign_demo/sms_demo_php/src/Base/BaseCurl.php on line 54
+[17-Jul-2019 10:49:18 Asia/Shanghai] PHP Stack trace:
+[17-Jul-2019 10:49:18 Asia/Shanghai] PHP   1. {main}() /Users/wulin/work/kingsoft/aws_sign_demo/sms_demo_php/examples/demo_sms.php:0
+[17-Jul-2019 10:49:18 Asia/Shanghai] PHP   2. Ksyun\Service\Sms->request() /Users/wulin/work/kingsoft/aws_sign_demo/sms_demo_php/examples/demo_sms.php:26
+[17-Jul-2019 10:49:18 Asia/Shanghai] PHP Warning:  Invalid argument supplied for foreach() in /Users/wulin/work/kingsoft/aws_sign_demo/sms_demo_php/src/Base/BaseCurl.php on line 74
+[17-Jul-2019 10:49:18 Asia/Shanghai] PHP Stack trace:
+[17-Jul-2019 10:49:18 Asia/Shanghai] PHP   1. {main}() /Users/wulin/work/kingsoft/aws_sign_demo/sms_demo_php/examples/demo_sms.php:0
+[17-Jul-2019 10:49:18 Asia/Shanghai] PHP   2. Ksyun\Service\Sms->request() /Users/wulin/work/kingsoft/aws_sign_demo/sms_demo_php/examples/demo_sms.php:26
+[17-Jul-2019 10:49:18 Asia/Shanghai] PHP   3. Ksyun\Service\Sms->configMerge() /Users/wulin/work/kingsoft/aws_sign_demo/sms_demo_php/src/Base/BaseCurl.php:54
